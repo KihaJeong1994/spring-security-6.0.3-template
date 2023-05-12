@@ -23,12 +23,31 @@ Authentication consists of
 **AbstractAuthenticationProcessingFilter**
 - a base filter that authenticates a user's credential
 - creates ***Authentication*** instance based on subclass of this filter
-- UsernamePasswordAuthenticationFilter -> UsernamePasswordAuthenticationToken
+- UsernamePasswordAuthenticationFilter -> UsernamePasswordAuthenticationToken : username/password auth by form
+- BasicAuthenticationFilter -> UsernamePasswordAuthenticationToken :username/password auth by Basic header 
 
 ![](https://docs.spring.io/spring-security/reference/_images/servlet/authentication/architecture/abstractauthenticationprocessingfilter.png)
 
+**UserDetailsService**
 
-## 1. Basic Authentication(TODO)
+- used by DaoAuthenticationProvider
+- defines the way to retrieve a username, password, etc
+
+## 1. Basic Authentication
+
+- By default, Spring Security's HTTP Basic Authentication support is enabled
+- However, as soon as any servlet based configuration is provided, HTTP Basic must be explicitly provided
+
+```
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+                .authorizeHttpRequests(authorize-> authorize
+                        .anyRequest().authenticated())
+                .httpBasic(withDefaults());
+        return http.build();
+    }
+```
 
 ## 2. JWT Authentication(TOTO)
 
