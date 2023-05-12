@@ -1,5 +1,33 @@
 # Spring Security Template
 
+## 0. Architecture
+
+### 1) Authentication Architecture
+![](https://docs.spring.io/spring-security/reference/_images/servlet/authentication/architecture/securitycontextholder.png)
+
+**Authentication vs UserDetails**
+
+Authentication ⊃ UserDetails
+
+Authentication consists of
+- principal : Identifies the user. Often an instance of UserDetails
+- credentials : Often a password
+- authorities : permissions the user is granted
+
+**AuthenticationProvider**
+
+- the one who actually perform authentication
+- DaoAuthenticationProvider : username/password
+- JwtAuthenticationProvider : authenticating a JWT token
+
+**AbstractAuthenticationProcessingFilter**
+- a base filter that authenticates a user's credential
+- creates ***Authentication*** instance based on subclass of this filter
+- UsernamePasswordAuthenticationFilter -> UsernamePasswordAuthenticationToken
+
+![](https://docs.spring.io/spring-security/reference/_images/servlet/authentication/architecture/abstractauthenticationprocessingfilter.png)
+
+
 ## 1. Basic Authentication(TODO)
 
 ## 2. JWT Authentication(TOTO)
