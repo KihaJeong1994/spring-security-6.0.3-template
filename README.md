@@ -33,6 +33,14 @@ Authentication consists of
 - used by DaoAuthenticationProvider
 - defines the way to retrieve a username, password, etc
 
+`POST` to `/signup` endpoint to save user info in database
+
+    {
+        'userId' : id,
+        'password': password,
+        'phone': phone number
+    }
+
 ## 1. Basic Authentication
 
 - By default, Spring Security's HTTP Basic Authentication support is enabled
