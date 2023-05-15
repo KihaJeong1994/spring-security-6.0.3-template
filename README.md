@@ -31,14 +31,14 @@ Authentication consists of
 **UserDetailsService**
 
 - used by DaoAuthenticationProvider
-- defines the way to retrieve a username, password, etc
+- defines the way to retrieve UserDetails with a username, password, etc (ex. from DB or memory, etc)
 
 `POST` to `/signup` endpoint to save user info in database
 
     {
-        'userId' : id,
-        'password': password,
-        'phone': phone number
+        "userId" : id,
+        "password": password,
+        "phone": phone number
     }
 
 ## 1. Basic Authentication
@@ -56,6 +56,9 @@ Authentication consists of
         return http.build();
     }
 ```
+
+`GET` to `/hello` with header
+Authorization : Basic <token>
 
 ## 2. JWT Authentication(TOTO)
 
