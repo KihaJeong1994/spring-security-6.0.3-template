@@ -2,7 +2,25 @@
 
 ## 0. Architecture
 
-### 1) Authentication Architecture
+### Summary : Main Objects for implementation
+
+`SecurityFilterChain` : which filters to use for matched request by Spring Security
+
+`Filter` : extract `Authentication` info from request and perform authentication by `AuthenticationProvider`
+
+`AuthenticationProvider` : one that actually perform authentication. used by Filter.authenticationManager
+
+`UserDetailsService` : used by DaoAuthenticationProvider to get stored info from DB, memory, etc
+
+`Authentication` : object that contains auth info
+
+---
+## Architecture
+
+![](https://docs.spring.io/spring-security/reference/_images/servlet/architecture/multi-securityfilterchain.png)
+
+## Authentication Architecture
+
 ![](https://docs.spring.io/spring-security/reference/_images/servlet/authentication/architecture/securitycontextholder.png)
 
 **Authentication vs UserDetails**
@@ -24,7 +42,7 @@ Authentication consists of
 - a base filter that authenticates a user's credential
 - creates ***Authentication*** instance based on subclass of this filter
 - UsernamePasswordAuthenticationFilter -> UsernamePasswordAuthenticationToken : username/password auth by form
-- BasicAuthenticationFilter -> UsernamePasswordAuthenticationToken :username/password auth by Basic header 
+- BasicAuthenticationFilter -> UsernamePasswordAuthenticationToken :username/password auth by Basic header
 
 ![](https://docs.spring.io/spring-security/reference/_images/servlet/authentication/architecture/abstractauthenticationprocessingfilter.png)
 
@@ -32,18 +50,6 @@ Authentication consists of
 
 - used by DaoAuthenticationProvider
 - defines the way to retrieve UserDetails with a username, password, etc (ex. from DB or memory, etc)
-
-### Main Objects for implementation
-
-SecurityFilterChain : which filters to use for matched request by Spring Security
-
-Filter : extract `Authentication` info from request and perform authentication by `AuthenticationProvider`
-
-AuthenticationProvider : one that actually perform authentication. used by Filter.authenticationManager
-
-UserDetailsService : used by DaoAuthenticationProvider to get stored info from DB, memory, etc
-
-Authentication : object that contains auth info
 
 `POST` to `/signup` endpoint to save user info in database
 
