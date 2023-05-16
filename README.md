@@ -33,6 +33,18 @@ Authentication consists of
 - used by DaoAuthenticationProvider
 - defines the way to retrieve UserDetails with a username, password, etc (ex. from DB or memory, etc)
 
+### Main Objects for implementation
+
+SecurityFilterChain : which filters to use for matched request by Spring Security
+
+Filter : extract `Authentication` info from request and perform authentication by `AuthenticationProvider`
+
+AuthenticationProvider : one that actually perform authentication. used by Filter.authenticationManager
+
+UserDetailsService : used by DaoAuthenticationProvider to get stored info from DB, memory, etc
+
+Authentication : object that contains auth info
+
 `POST` to `/signup` endpoint to save user info in database
 
     {
