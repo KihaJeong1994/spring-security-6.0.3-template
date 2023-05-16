@@ -38,7 +38,7 @@ public class UserController {
         String scope = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(" "));
-        JwsHeader header = JwsHeader.with(SignatureAlgorithm.RS512).type("JWT").build();
+        JwsHeader header = JwsHeader.with(SignatureAlgorithm.RS256).type("JWT").build();
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .issuer("self")
                 .issuedAt(now)

@@ -1,21 +1,6 @@
 ## 1. Basic Authentication
 
-- By default, Spring Security's HTTP Basic Authentication support is enabled
-- However, as soon as any servlet based configuration is provided, HTTP Basic must be explicitly provided
-
-```
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests(authorize-> authorize
-                        .anyRequest().authenticated())
-                .httpBasic(withDefaults());
-        return http.build();
-    }
-```
-
-`GET` to `/hello` with header
-Authorization : Basic <token>
+[Basic Authentication](https://github.com/KihaJeong1994/spring-security-6.0.3-template/tree/basic)
 
 ## 2. JWT Authentication
 `POST` to `/user/login` with form to get jwt token
@@ -25,6 +10,10 @@ Authorization : Basic <token>
     "password" : password
 }
 ```
+
+`GET` to `/hello` with header with token from `/user/login`
+
+Authorization: Bearer $TOKEN
 
 ## 3. OAuth(TODO)
 
