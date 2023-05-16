@@ -17,7 +17,9 @@
 `GET` to `/hello` with header
 Authorization : Basic <token>
 
-## 2. JWT Authentication(TOTO)
+## 2. JWT Authentication
+    
+[JWT Authentication](https://github.com/KihaJeong1994/spring-security-6.0.3-template/tree/jwt)
 
 ## 3. OAuth(TODO)
 
