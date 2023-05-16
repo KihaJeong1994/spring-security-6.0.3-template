@@ -9,6 +9,10 @@ spring:
   h2:
     console:
       enabled: true
+jwt:
+  private.key: classpath:app.key
+  public.key: classpath:app.pub
+
 logging:
   level:
     org:
