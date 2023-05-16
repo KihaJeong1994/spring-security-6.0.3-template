@@ -1,21 +1,18 @@
 ## 1. Basic Authentication
 
-- By default, Spring Security's HTTP Basic Authentication support is enabled
-- However, as soon as any servlet based configuration is provided, HTTP Basic must be explicitly provided
+![](https://docs.spring.io/spring-security/reference/_images/servlet/authentication/unpwd/basicauthenticationfilter.png)
 
-```
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests(authorize-> authorize
-                        .anyRequest().authenticated())
-                .httpBasic(withDefaults());
-        return http.build();
-    }
-```
+### `GET` to `/hello` with Authorization header
 
-`GET` to `/hello` with header
-Authorization : Basic <token>
+SecurityFilterChain : `WebSecurityConfig.filterChain`
+
+Filter : `BasicAuthenticationFilter`
+
+AuthenticationProvider : `DaoAuthenticationProvider`
+
+UserDetailsService : `CustomUserDetailsService`
+
+Authentication : `UsernamePasswordAuthenticationToken`
 
 ## 2. JWT Authentication
     

@@ -37,7 +37,8 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(authorize-> authorize
                         .requestMatchers(HttpMethod.POST,"/user").permitAll()
                         .anyRequest().authenticated())
-                .httpBasic(withDefaults());
+                .httpBasic(withDefaults()) // enable BASIC authentication
+        ;
         return http.build();
     }
 
