@@ -5,6 +5,7 @@ import com.example.springsecuritytemplate.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,6 +19,12 @@ public class UserController {
     public ResponseEntity register(@RequestBody UserDto userDto){
         UserDto registered = userService.register(userDto);
         return new ResponseEntity(registered,HttpStatus.OK);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity login(Authentication authentication){
+        String token = "gg";
+        return new ResponseEntity(token,HttpStatus.OK);
     }
 
 }

@@ -17,7 +17,14 @@
 `GET` to `/hello` with header
 Authorization : Basic <token>
 
-## 2. JWT Authentication(TOTO)
+## 2. JWT Authentication
+`POST` to `/user/login` with form to get jwt token
+```
+{
+    "userId": user id,
+    "password" : password
+}
+```
 
 ## 3. OAuth(TODO)
 
