@@ -75,8 +75,8 @@ public class WebSecurityConfig {
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt) // when added, BearerTokenAuthenticationFilter is activated
                 .sessionManagement((session)->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling((exceptions)-> exceptions
-                        .authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint())
-                        .accessDeniedHandler(new BearerTokenAccessDeniedHandler())
+                        .authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint()) // implements AuthenticationEntryPoint to custom error response when authentication failed
+                        .accessDeniedHandler(new BearerTokenAccessDeniedHandler()) // implements AccessDeniedHandler to custom error response when authorization failed
                 )
         ;
         return http.build();
