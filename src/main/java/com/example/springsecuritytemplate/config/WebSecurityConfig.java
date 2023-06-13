@@ -59,7 +59,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(authorize->authorize
                         .anyRequest().authenticated()
                 )
-                .addFilterAt(new PostLoginAuthenticationFilter(authenticationManager(),authenticationEntryPoint()), BasicAuthenticationFilter.class)
+                .addFilterAt(new PostLoginAuthenticationFilter(authenticationManager(),new BasicAuthenticationEntryPoint()), BasicAuthenticationFilter.class)
                 ;
         return http.build();
     }
@@ -72,12 +72,15 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(authorize-> authorize
                         .requestMatchers(HttpMethod.POST,"/user").permitAll()
                         .anyRequest().authenticated())
-                .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt) // when added, BearerTokenAuthenticationFilter is activated
+                .oauth2ResourceServer((oauth2ResourceServer)->oauth2ResourceServer
+                        .authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint()) // to apply authenticationEntryPoint, accessDeniedHandler, you need to apply here. below at exceptionHandling is not working
+                        .accessDeniedHandler(new BearerTokenAccessDeniedHandler())
+                ) // when added, BearerTokenAuthenticationFilter is activated
                 .sessionManagement((session)->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .exceptionHandling((exceptions)-> exceptions
-                        .authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint()) // implements AuthenticationEntryPoint to custom error response when authentication failed
-                        .accessDeniedHandler(new BearerTokenAccessDeniedHandler()) // implements AccessDeniedHandler to custom error response when authorization failed
-                )
+//                .exceptionHandling((exceptions)-> exceptions
+//                        .authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint()) // implements AuthenticationEntryPoint to custom error response when authentication failed
+//                        .accessDeniedHandler(new BearerTokenAccessDeniedHandler()) // implements AccessDeniedHandler to custom error response when authorization failed
+//                )
         ;
         return http.build();
     }
@@ -101,9 +104,6 @@ public class WebSecurityConfig {
         return new ProviderManager(Collections.singletonList(authenticationProvider));
     }
 
-    public AuthenticationEntryPoint authenticationEntryPoint(){
-        return new BasicAuthenticationEntryPoint();
-    }
 
     @Bean
     JwtDecoder jwtDecoder(){
