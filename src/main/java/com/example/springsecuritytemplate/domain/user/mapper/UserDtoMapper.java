@@ -1,7 +1,7 @@
-package com.example.springsecuritytemplate.user.mapper;
+package com.example.springsecuritytemplate.domain.user.mapper;
 
-import com.example.springsecuritytemplate.user.dto.UserDto;
-import com.example.springsecuritytemplate.user.entity.User;
+import com.example.springsecuritytemplate.domain.user.dto.UserDto;
+import com.example.springsecuritytemplate.domain.user.entity.User;
 import org.springframework.stereotype.Service;
 
 import java.util.function.Function;

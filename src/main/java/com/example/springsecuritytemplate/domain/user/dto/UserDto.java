@@ -1,4 +1,4 @@
-package com.example.springsecuritytemplate.user.dto;
+package com.example.springsecuritytemplate.domain.user.dto;
 
 public record UserDto(
         String userId,

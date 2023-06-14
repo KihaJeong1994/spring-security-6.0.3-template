@@ -1,7 +1,7 @@
-package com.example.springsecuritytemplate.user.controller;
+package com.example.springsecuritytemplate.domain.user.controller;
 
-import com.example.springsecuritytemplate.user.dto.UserDto;
-import com.example.springsecuritytemplate.user.service.UserService;
+import com.example.springsecuritytemplate.domain.user.dto.UserDto;
+import com.example.springsecuritytemplate.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

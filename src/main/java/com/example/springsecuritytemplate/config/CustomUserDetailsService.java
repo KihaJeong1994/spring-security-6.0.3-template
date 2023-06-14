@@ -1,7 +1,7 @@
 package com.example.springsecuritytemplate.config;
 
-import com.example.springsecuritytemplate.user.entity.User;
-import com.example.springsecuritytemplate.user.repository.UserRepository;
+import com.example.springsecuritytemplate.domain.user.entity.User;
+import com.example.springsecuritytemplate.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;

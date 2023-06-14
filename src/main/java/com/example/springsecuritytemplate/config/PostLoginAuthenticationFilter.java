@@ -1,6 +1,6 @@
 package com.example.springsecuritytemplate.config;
 
-import com.example.springsecuritytemplate.user.dto.LoginDto;
+import com.example.springsecuritytemplate.domain.user.dto.LoginDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

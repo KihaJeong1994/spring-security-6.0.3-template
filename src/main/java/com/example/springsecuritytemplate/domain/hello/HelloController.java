@@ -1,4 +1,4 @@
-package com.example.springsecuritytemplate.hello;
+package com.example.springsecuritytemplate.domain.hello;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

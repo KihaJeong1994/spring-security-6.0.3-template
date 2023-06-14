@@ -1,9 +1,9 @@
-package com.example.springsecuritytemplate.user.service;
+package com.example.springsecuritytemplate.domain.user.service;
 
-import com.example.springsecuritytemplate.user.dto.UserDto;
-import com.example.springsecuritytemplate.user.entity.User;
-import com.example.springsecuritytemplate.user.mapper.UserDtoMapper;
-import com.example.springsecuritytemplate.user.repository.UserRepository;
+import com.example.springsecuritytemplate.domain.user.dto.UserDto;
+import com.example.springsecuritytemplate.domain.user.entity.User;
+import com.example.springsecuritytemplate.domain.user.mapper.UserDtoMapper;
+import com.example.springsecuritytemplate.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

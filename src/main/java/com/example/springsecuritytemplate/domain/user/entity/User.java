@@ -1,4 +1,4 @@
-package com.example.springsecuritytemplate.user.entity;
+package com.example.springsecuritytemplate.domain.user.entity;
 
 import jakarta.persistence.*;
 import lombok.Builder;
