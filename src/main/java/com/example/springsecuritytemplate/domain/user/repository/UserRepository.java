@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User,Long> {
     Optional<User> findByUserId(String userId);
+    // TODO : add method that gets user data with authority by join
 }

@@ -15,6 +15,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
+import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.oauth2.server.resource.web.BearerTokenAuthenticationEntryPoint;
 import org.springframework.security.oauth2.server.resource.web.access.BearerTokenAccessDeniedHandler;
 import org.springframework.security.web.SecurityFilterChain;
@@ -52,13 +54,14 @@ public class WebSecurityConfig {
 //    @Order(1) // no @Order defaults to last
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf((csrf)->csrf.ignoringRequestMatchers("/user")) // if we don't add this option, POST or PUT protects csrf by default -> always 401 when POST,PUT
+                .csrf((csrf)->csrf.ignoringRequestMatchers("/**")) // if we don't add this option, POST or PUT protects csrf by default -> always 401 when POST,PUT
                 .authorizeHttpRequests(authorize-> authorize
                         .requestMatchers(HttpMethod.POST,"/user").permitAll()
-                        .requestMatchers(HttpMethod.GET,"/bye/**").hasAuthority("SCOPE_"+"BYE.READ")
-                        .requestMatchers("/bye/**").hasAuthority("SCOPE_"+"BYE.WRITE")
-                        .requestMatchers(HttpMethod.GET,"/hello/**").hasAuthority("SCOPE_"+"HELLO.READ")
-                        .requestMatchers("/hello/**").hasAuthority("SCOPE_"+"HELLO.WRITE")
+                        .requestMatchers(HttpMethod.POST,"/authority").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/bye/**").hasAuthority("BYE.READ")
+                        .requestMatchers("/bye/**").hasAuthority("BYE.WRITE")
+                        .requestMatchers(HttpMethod.GET,"/hello/**").hasAuthority("HELLO.READ")
+                        .requestMatchers("/hello/**").hasAuthority("HELLO.WRITE")
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer((oauth2ResourceServer)->oauth2ResourceServer
@@ -73,6 +76,15 @@ public class WebSecurityConfig {
 //                )
         ;
         return http.build();
+    }
+    @Bean
+    public JwtAuthenticationConverter jwtAuthenticationConverter() {
+        JwtGrantedAuthoritiesConverter grantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
+        grantedAuthoritiesConverter.setAuthorityPrefix(""); // by default, JwtGrantedAuthoritiesConverter add "SCOPE_" prefix to authority
+
+        JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
+        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(grantedAuthoritiesConverter);
+        return jwtAuthenticationConverter;
     }
 
 
