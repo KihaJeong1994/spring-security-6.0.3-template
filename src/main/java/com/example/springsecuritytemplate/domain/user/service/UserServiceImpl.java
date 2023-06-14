@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.NoSuchElementException;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService{
@@ -24,6 +26,13 @@ public class UserServiceImpl implements UserService{
                 .phone(userDto.phone())
                 .build();
         return userDtoMapper.apply(userRepository.save(user));
+    }
+
+    @Override
+    public UserDto getUser(String userId) {
+        return userRepository.findByUserId(userId)
+                .map(userDtoMapper)
+                .orElseThrow(()->new NoSuchElementException());
     }
 
 
