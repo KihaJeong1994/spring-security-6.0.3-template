@@ -1,8 +1,6 @@
 package com.example.springsecuritytemplate.config;
 
-import com.example.springsecuritytemplate.domain.user.dto.UserDto;
-import com.example.springsecuritytemplate.domain.user.entity.User;
-import com.example.springsecuritytemplate.domain.user.repository.UserRepository;
+import com.example.springsecuritytemplate.domain.user.dto.UserWithAuthorityDto;
 import com.example.springsecuritytemplate.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,27 +21,29 @@ public class CustomUserDetailsService implements UserDetailsService {
     private final UserService userService;
     @Override
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
-        // 1. retrieve data from DB
-        UserDto userDto = userService.getUser(userId);
+        // 1. retrieve data from user service
+        UserWithAuthorityDto userDto = userService.getUser(userId);
         // 2. wrap it with UserDetails
         return new CustomUserDetails(userDto);
     }
 
-    static final class CustomUserDetails implements UserDetails{
+    final class CustomUserDetails implements UserDetails{
 
-        private UserDto userDto;
+        private UserWithAuthorityDto userDto;
 
         private static final List<GrantedAuthority> ROLE_USER = Collections.unmodifiableList(
                 AuthorityUtils.createAuthorityList("ROLE_USER")
         ) ;
 
-        CustomUserDetails(UserDto userDto){
+        CustomUserDetails(UserWithAuthorityDto userDto){
             this.userDto = userDto;
         }
 
         @Override
         public Collection<? extends GrantedAuthority> getAuthorities() {
-            return ROLE_USER;
+            return Collections.unmodifiableList(
+                    AuthorityUtils.commaSeparatedStringToAuthorityList(String.join(",", userDto.authorityDto().scopes()))
+            ) ;
         }
 
 

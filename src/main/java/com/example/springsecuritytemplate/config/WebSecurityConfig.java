@@ -53,11 +53,14 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf((csrf)->csrf.ignoringRequestMatchers("/user")) // if we don't add this option, POST or PUT protects csrf by default -> always 401 when POST,PUT
-//                .csrf((csrf)->csrf.ignoringRequestMatchers(PathRequest.toH2Console()))
                 .authorizeHttpRequests(authorize-> authorize
                         .requestMatchers(HttpMethod.POST,"/user").permitAll()
-//                        .requestMatchers(PathRequest.toH2Console()).permitAll()
-                        .anyRequest().authenticated())
+                        .requestMatchers(HttpMethod.GET,"/bye/**").hasAuthority("SCOPE_"+"BYE.READ")
+                        .requestMatchers("/bye/**").hasAuthority("SCOPE_"+"BYE.WRITE")
+                        .requestMatchers(HttpMethod.GET,"/hello/**").hasAuthority("SCOPE_"+"HELLO.READ")
+                        .requestMatchers("/hello/**").hasAuthority("SCOPE_"+"HELLO.WRITE")
+                        .anyRequest().authenticated()
+                )
                 .oauth2ResourceServer((oauth2ResourceServer)->oauth2ResourceServer
                         .authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint()) // to apply authenticationEntryPoint, accessDeniedHandler, you need to apply here. below at exceptionHandling is not working
                         .accessDeniedHandler(new BearerTokenAccessDeniedHandler())

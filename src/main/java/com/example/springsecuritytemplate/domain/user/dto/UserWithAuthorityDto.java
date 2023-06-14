@@ -1,9 +1,10 @@
 package com.example.springsecuritytemplate.domain.user.dto;
 
-public record UserDto(
+
+public record UserWithAuthorityDto(
         String userId,
         String password,
         String phone,
-        Long authorityId
+        AuthorityDto authorityDto
 ) {
 }
