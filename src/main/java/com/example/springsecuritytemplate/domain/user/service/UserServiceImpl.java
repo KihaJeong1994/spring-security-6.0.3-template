@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true) // to continue the transaction for enabling lazy loading in other class
     public UserWithAuthorityDto getUser(String userId) {
         return userRepository.findByUserId(userId)
                 .map(userDtoMapper::toUserWithAuthorityDto)
