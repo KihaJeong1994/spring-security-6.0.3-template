@@ -15,6 +15,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
@@ -75,6 +76,7 @@ public class WebSecurityConfig {
                 .oauth2ResourceServer((oauth2ResourceServer)->oauth2ResourceServer
                         .authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint()) // to apply authenticationEntryPoint, accessDeniedHandler, you need to apply here. below at exceptionHandling is not working
                         .accessDeniedHandler(new BearerTokenAccessDeniedHandler())
+                        .jwt(Customizer.withDefaults())
                 ) // when added, BearerTokenAuthenticationFilter is activated
                 .sessionManagement((session)->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 //                .exceptionHandling((exceptions)-> exceptions
