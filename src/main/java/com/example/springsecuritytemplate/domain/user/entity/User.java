@@ -19,7 +19,7 @@ public class User {
 
     private String phone;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne
     @Setter
     private Authority authority;
 
