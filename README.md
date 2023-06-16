@@ -4,11 +4,20 @@
 
 ## 2. JWT Authentication
 
-### `POST` to `/user/login` with form to get jwt token
+### `POST` to `/user/login` with form to get jwt token that has scopes
+authorityId
+
+1 : ADMIN : all
+
+2 : WRITE : POST /hello, POST bye
+
+3 : READ : GET /hello, GET /bye
 ```
 {
     "userId": user id,
-    "password" : password
+    "password" : password,
+    "phone": "01011112222",
+    "authorityId":1
 }
 ```
 
@@ -22,7 +31,7 @@ UserDetailsService : `CustomUserDetailsService`
 
 Authentication : `UsernamePasswordAuthenticationToken`
 
-### `GET` to `/hello` with header with bearer token from `/user/login`
+### `POST` to `/hello` with header with bearer token from `/user/login`
 
 SecurityFilterChain : `WebSecurityConfig.filterChain`
 
